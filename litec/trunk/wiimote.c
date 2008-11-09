@@ -75,8 +75,13 @@ void main ()
 			wiimote_debug(&buffer);
 #endif
 	
+			/* 
+			a value close to 1 results in very soft angle smoothing
+			drawback: smoothing delivers the resulting angle delayed
+			*/
+			wiimote_smoothfac(wii_handle, 0.9);
 			while (key_esc != 1)
-			{
+
 				/* update buffer with data coming from Wiimote */
 				wiimote_status(wii_handle, &buffer);
 				wait(1);

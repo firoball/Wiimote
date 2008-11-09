@@ -289,7 +289,7 @@ var wiimote_connect(var dev_index);
 /* 
 close connection - must be called before exit 
 param: 	handle for wiimote device
-return: 	-
+return:	0 - failed		1 - successful
 */
 var wiimote_disconnect(var handle);
 
@@ -298,7 +298,7 @@ var wiimote_disconnect(var handle);
 turn off/on LEDs of Wiimote 
 param: 	handle for wiimote device
 param: 	4 bits (0 - 15) for LED1-4 (use defines: LED1...4)
-return:	-
+return:	0 - failed		1 - successful
 Balance Board only supports LED1
 */
 var wiimote_led(var handle, var led);
@@ -308,7 +308,7 @@ var wiimote_led(var handle, var led);
 turn off(0)/on(1) Vibration 
 param: 	handle for wiimote device
 param:	1 - on		0 - off
-return:	-
+return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 var wiimote_vibration(var handle, var vib_on);
@@ -319,7 +319,7 @@ read motion sensors, IR sensor, analog stick and button states
 from Wiimote/Nunchuk/Classic Controller/Guitar/Balance Board
 param: 	handle for wiimote device
 param:	address of buffer of type WIIMOTE or array var[90] 
-return: 	- 
+return:	0 - failed		1 - successful
 */
 var wiimote_status(var handle, void* buffer);
 
@@ -328,17 +328,27 @@ var wiimote_status(var handle, void* buffer);
 enable/disable infrared camera
 param: 	handle for wiimote device
 param:	0 - off (default)		1 - on
-return:	-
+return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 var wiimote_ir(var handle, var ir_on);
+
+
+/*
+set factor for smoothing of Wiimote angle data
+param: 	handle for wiimote device
+param:	smooth factor (0...1)
+return:	0 - failed		1 - successful
+Not supported by Balance Board
+*/
+var wiimote_smoothfac(var handle, var fac);
 
 
 /* 
 check whether a certain device is connected/active 
 use these functions if you don't want to read those values from your buffer
 param: 	handle for wiimote device
-return: 	0 - inactive		1 - active 
+return: 	0 - inactive/failed		1 - active 
 */
 var wiimote_connected(var handle);
 var wiimote_nunchuk_connected(var handle);
