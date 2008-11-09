@@ -1,7 +1,25 @@
-/* Sample script demonstrating usage of Wiimote
-   for short descriptions see comments in ackwii.h
-   10/25/08 - Firoball
-*/
+/*
+ *******************************************************************************
+ * wiimote.c
+ * Creation date: 2008
+ * Author:        Firoball
+ *
+ *******************************************************************************
+ * $Date$
+ * $Revision$
+ * $Author$
+ *
+ *******************************************************************************
+ * Description
+ *
+ * Sample script demonstrating usage of Wiimote
+ *
+ * Comments
+ * 
+ * for short descriptions see comments in ackwii.h
+ *
+ *******************************************************************************
+ */
 
 #include <acknex.h>
 #include <default.c>
@@ -57,7 +75,6 @@ void main ()
 			wiimote_debug(&buffer);
 #endif
 	
-wiimote_smoothfac(wii_handle, 0.9);
 			while (key_esc != 1)
 			{
 				/* update buffer with data coming from Wiimote */

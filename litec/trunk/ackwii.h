@@ -1,7 +1,26 @@
-/* Definition script for using with Wiimote
-   for short descriptions see comments in this file
-   10/25/08 - Firoball
-*/
+/*
+ *******************************************************************************
+ * ackwii.h
+ * Creation date: 2008
+ * Author:        Firoball
+ *
+ *******************************************************************************
+ * $Date$
+ * $Revision$
+ * $Author$
+ *
+ *******************************************************************************
+ * Description
+ *
+ * Definition script demonstrating usage of Wiimote
+ *
+ * Comments
+ * 
+ * for short descriptions see comments in this file
+ *
+ *******************************************************************************
+ */
+
 #ifndef ACKWII_H
 #define ACKWII_H
 

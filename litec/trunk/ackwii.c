@@ -1,21 +1,34 @@
-/* Debug script for using with Wiimote
-   for short descriptions see comments in ackwii.h
-   10/25/08 - Firoball
-*/
-
-/////////////////////////////////////////////////////////////////////////
-
-
 /*
-The following sample script reads the button and sensor states of Wiimote
-and expansion device
-define WII_DEBUG to enable debug mode
-start/stop by pressing F12
-for recording values keep B button of Wiimote pressed
-
-IMPORTANT NOTE: never include this file directly!
-include 'ackwii.h' and define 'WII_DEBUG' in your main script instead!
-*/
+ *******************************************************************************
+ * ackwii.c
+ * Creation date: 2008
+ * Author:        Firoball
+ *
+ *******************************************************************************
+ * $Date$
+ * $Revision$
+ * $Author$
+ *
+ *******************************************************************************
+ * Description
+ *
+ * Debug script for using with Wiimote
+ *
+ * Comments
+ * 
+ * for short descriptions see comments in ackwii.h
+ *
+ * The following sample script reads the button and sensor states of Wiimote
+ * and expansion device
+ * define WII_DEBUG to enable debug mode
+ * start/stop by pressing F12
+ * for recording values keep B button of Wiimote pressed
+ * 
+ * IMPORTANT NOTE: never include this file directly!
+ * include 'ackwii.h' and define 'WII_DEBUG' in your main script instead!
+ * 
+ *******************************************************************************
+ */
 
 	
 //////////Debug helpers
