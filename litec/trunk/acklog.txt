@@ -1,0 +1,67 @@
+Log of A7 Engine 7.50 run at Sun Nov 09 18:32:32 2008
+Firo on Windows NT/2000/XP version 5.1 Build 2600
+Options wiimote.c -eq -diag -nj -ti -debug
+
+App D:\acknex7\SED.exe in E:\projects\Acknex\wiimote\
+MM mixer opened
+DSOUND device opened
+DI interface opened
+Start Window opened
+(c)Conitec . Dieburg . San Diego . www.3dgamestudio.com
+A7 Engine - Pro Edition V7.50 - Sep  7 2008
+Development version
+Registered to: Robert Jäger
+
+DI Microsoft-PC-Joysticktreiber 0 axes 0 buttons initialized
+Mouse found
+SB Live!-Wavegerät opened
+NVIDIA GeForce 7900 GT pure T&L device 1ff9 detected
+D3D device NVIDIA GeForce 7900 GT 1ff9 selected.
+PATH D:\acknex7\code\
+ackwii.dll opened
+Compiling WIIMOTE.C - [Esc] to abort...... ....  ... 0.453 sec
+Running WIIMOTE.C.
+2 objects
+Main started in debug mode
+def_startup started
+D3D_Init Window: 800x600 -> Window: 1x800x600x32
+Video memory found: 481 MB
+Main loop..........ok
+1st frame - 492544K.. ok
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Malfunction W1527: nö so nich
+Normal exit
+Close level,DLL,objects
+Free input,funcs,panels,defs,syns,views,strings,vars..ok
+Free sounds,bmaps,fonts,hash,defs1,script..ok
+Close dx,multimedia,D3D,engine,physics,nexus..ok
+A7 Engine - Pro Edition V7.50 - Sep  7 2008
+(c)Conitec . Dieburg . San Diego . www.3dgamestudio.com
+Registered to: Robert Jäger
+Close window
