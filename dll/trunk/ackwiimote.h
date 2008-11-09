@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * wiimote.cpp
+ * ackwiimote.h
  * Creation date: 2007
  * Author:        Firoball
  *

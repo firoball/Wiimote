@@ -88,7 +88,7 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 	- orientation is mapped to 'angle1'
 	*/
 	GetOrientation(pan, tilt, roll);
-	buffer->angle1.pan = _VAR((int)(pan * 180 / PI));
+	buffer->angle1.pan  = _VAR((int)(pan * 180 / PI));
 	buffer->angle1.tilt = _VAR((int)(tilt * 180 / PI));
 	buffer->angle1.roll = _VAR((int)(roll * 180 / PI));
 
@@ -116,7 +116,7 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 	- orientation is mapped to 'angle2'
 	*/	
 	GetChukOrientation(pan, tilt, roll);
-	buffer->angle2.pan = _VAR((int)(pan * 180 / PI));
+	buffer->angle2.pan  = _VAR((int)(pan * 180 / PI));
 	buffer->angle2.tilt = _VAR((int)(tilt * 180 / PI));
 	buffer->angle2.roll = _VAR((int)(roll * 180 / PI));
 
@@ -176,27 +176,27 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 	buffer->board.weight   = _VAR((w + x + y + z));
 
 	//Dpad is shared by Classic Controller, Wiimote and Guitar
-	buffer->dpad.up = _VAR(mLastClassicReport.mUp|mLastButtonStatus.mUp|mLastGuitarReport.mUp);
-	buffer->dpad.down = _VAR(mLastClassicReport.mDown|mLastButtonStatus.mDown|mLastGuitarReport.mDown);
-	buffer->dpad.left = _VAR(mLastClassicReport.mLeft|mLastButtonStatus.mLeft);
+	buffer->dpad.up    = _VAR(mLastClassicReport.mUp|mLastButtonStatus.mUp|mLastGuitarReport.mUp);
+	buffer->dpad.down  = _VAR(mLastClassicReport.mDown|mLastButtonStatus.mDown|mLastGuitarReport.mDown);
+	buffer->dpad.left  = _VAR(mLastClassicReport.mLeft|mLastButtonStatus.mLeft);
 	buffer->dpad.right = _VAR(mLastClassicReport.mRight|mLastButtonStatus.mRight);
 
 	//buttons are partly shared by Classic Controller, Wiimote and Guitar
-	buffer->buttons.butA = _VAR(mLastClassicReport.mA|mLastButtonStatus.mA);
-	buffer->buttons.butB = _VAR(mLastClassicReport.mB|mLastButtonStatus.mB);
-	buffer->buttons.butX = _VAR(mLastClassicReport.mX);
-	buffer->buttons.butY = _VAR(mLastClassicReport.mY);
-	buffer->buttons.butPlus = _VAR(mLastClassicReport.mPlus|mLastButtonStatus.mPlus|mLastGuitarReport.mPlus);
-	buffer->buttons.butMinus = _VAR(mLastClassicReport.mMinus|mLastButtonStatus.mMinus|mLastGuitarReport.mMinus);
-	buffer->buttons.butHome = _VAR(mLastClassicReport.mHome|mLastButtonStatus.mHome);
-	buffer->buttons.butL = _VAR(mLastClassicReport.mL);
-	buffer->buttons.butR = _VAR(mLastClassicReport.mR);
-	buffer->buttons.butZL = _VAR(mLastClassicReport.mZL);
-	buffer->buttons.butZR = _VAR(mLastClassicReport.mZR);
-	buffer->buttons.butGreen = _VAR(mLastGuitarReport.mG);
-	buffer->buttons.butRed = _VAR(mLastGuitarReport.mR);
+	buffer->buttons.butA      = _VAR(mLastClassicReport.mA|mLastButtonStatus.mA);
+	buffer->buttons.butB      = _VAR(mLastClassicReport.mB|mLastButtonStatus.mB);
+	buffer->buttons.butX      = _VAR(mLastClassicReport.mX);
+	buffer->buttons.butY      = _VAR(mLastClassicReport.mY);
+	buffer->buttons.butPlus   = _VAR(mLastClassicReport.mPlus|mLastButtonStatus.mPlus|mLastGuitarReport.mPlus);
+	buffer->buttons.butMinus  = _VAR(mLastClassicReport.mMinus|mLastButtonStatus.mMinus|mLastGuitarReport.mMinus);
+	buffer->buttons.butHome   = _VAR(mLastClassicReport.mHome|mLastButtonStatus.mHome);
+	buffer->buttons.butL      = _VAR(mLastClassicReport.mL);
+	buffer->buttons.butR      = _VAR(mLastClassicReport.mR);
+	buffer->buttons.butZL     = _VAR(mLastClassicReport.mZL);
+	buffer->buttons.butZR     = _VAR(mLastClassicReport.mZR);
+	buffer->buttons.butGreen  = _VAR(mLastGuitarReport.mG);
+	buffer->buttons.butRed    = _VAR(mLastGuitarReport.mR);
 	buffer->buttons.butYellow = _VAR(mLastGuitarReport.mY);
-	buffer->buttons.butBlue = _VAR(mLastGuitarReport.mB);
+	buffer->buttons.butBlue   = _VAR(mLastGuitarReport.mB);
 	buffer->buttons.butOrange = _VAR(mLastGuitarReport.mO);
 		
 	buffer->buttons.butAny = _VAR((INT)(mLastClassicReport.mUp|mLastButtonStatus.mUp|mLastGuitarReport.mUp
@@ -219,13 +219,13 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 								));
 
 	//additionally report status of connected devices
-	buffer->status.ir = _VAR((int)ir_active());
-	buffer->status.nunchuk = _VAR((int)nunchuk_active());
-	buffer->status.classic = _VAR((int)classic_active());
-	buffer->status.guitar = _VAR((int)guitar_active());
+	buffer->status.ir           = _VAR((int)ir_active());
+	buffer->status.nunchuk      = _VAR((int)nunchuk_active());
+	buffer->status.classic      = _VAR((int)classic_active());
+	buffer->status.guitar       = _VAR((int)guitar_active());
 	buffer->status.balanceboard = _VAR((int)balanceboard_active());
-	buffer->status.vibration = _VAR((int)vibration_active());
-	buffer->status.index = _VAR(dev_index);
+	buffer->status.vibration    = _VAR((int)vibration_active());
+	buffer->status.index        = _VAR(dev_index);
 	
 	//only periodically update battery status
 	if (BatTimer < _VAR(BatTimerLimit))

@@ -1,7 +1,7 @@
 [Project]
 FileName=ackwii.dev
 Name=Wiimote
-UnitCount=8
+UnitCount=9
 Type=3
 Ver=1
 ObjFiles=
@@ -33,7 +33,7 @@ CompilerSettings=0000000001001000000000
 Major=1
 Minor=0
 Release=0
-Build=18
+Build=47
 LanguageID=1033
 CharsetID=1252
 CompanyName=
@@ -128,9 +128,9 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit9]
-FileName=ackdll.cpp
+FileName=ackdll.h
 CompileCpp=1
-Folder=Wiimote
+Folder=
 Compile=1
 Link=1
 Priority=1000

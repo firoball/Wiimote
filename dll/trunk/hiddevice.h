@@ -1,6 +1,6 @@
 /*
  *******************************************************************************
- * wiimote.cpp
+ * hiddevice.h
  * Creation date: 2007
  * Author:        Firoball
  *
@@ -37,7 +37,7 @@ public:
 	~cHIDDevice();
 	bool Disconnect();
 	bool Connect(unsigned short device_id, unsigned short vendor_id, int index=0);
-	bool IsConnected() const {return mConnected;}
+	bool IsConnected() const {try{return mConnected;}catch(...){throw; return false;}}
 	int GetDevices(unsigned short device_id, unsigned short vendor_id, const unsigned char * mOutputBuffer, const int mOutputBufferSize);
 
 	bool WriteToDevice(unsigned const char * buffer, int num_bytes);
