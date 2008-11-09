@@ -311,3 +311,16 @@ DLLFUNC var wiimote_ir(var handle, var ir_on)
 	return _VAR((int)retval);
 }
 
+DLLFUNC var wiimote_smoothfac(var handle, var fac)
+{
+	bool retval = false;
+	ackWiiMote *wiimote = (ackWiiMote*)handle;
+
+	if (wiimote__checkHandle(wiimote))
+	{
+		wiimote->SetSmoothFac(_FLOAT(fac));
+		retval = true;
+	}
+
+	return _VAR((int)retval);
+}

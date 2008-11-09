@@ -72,7 +72,7 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 	static float w, x, y, z;
 	static int i;
 	static int BatTimerLimit = BAT_PERIOD * 16;
-
+	
 	/* only for prerelease */
 	//draw_text("Prerelease version - only use for testing!", _VAR(5), _VAR(5), vector(_VAR(0),_VAR(0),_VAR(200)));
 	

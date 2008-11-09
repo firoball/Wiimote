@@ -158,6 +158,8 @@ void cWiiMote::Init()
 	
 	mDeviceType           = MAIN_DEV_WIIMOTE;
 	mExpansionType        = EXP_DEV_NONE;
+	
+	mSmoothFac            = 0.5f;	
 }
 
 bool cWiiMote::SetReportMode(eReportMode mode)
@@ -799,7 +801,7 @@ void cWiiMote::GetCalibratedAcceleration(float & x, float & y, float &z) const
 
 void cWiiMote::GetOrientation(float & pan, float & tilt, float & roll) /*const*/
 {
-        float x, y, z;
+	float x, y, z;
 
  	//Balance Board does not deliver angle and force information
  	if (mDeviceType == MAIN_DEV_BALANCE)
@@ -807,93 +809,91 @@ void cWiiMote::GetOrientation(float & pan, float & tilt, float & roll) /*const*/
 		pan = tilt = roll = 0.0f;
 		return;
 	}
-        //pan cannot be determined through acclereration data
-        pan = 0;
-        GetCalibratedAcceleration(x, y, z);
+	//pan cannot be determined through acclereration data
+	pan = 0;
+	GetCalibratedAcceleration(x, y, z);
 
-        //remote is most likely not accelerated
-        if (VECLEN(x,y,z) <= 1.05)
-        {
-                //limit accleration values to avoid undefined results
-                x = CLAMP(x,-1,1);
-                y = CLAMP(y,-1,1);
-                z = CLAMP(z,-1,1);
+	//remote is most likely not accelerated
+	if (VECLEN(x,y,z) <= 1.05)
+    {
+    	//limit accleration values to avoid undefined results
+		x = CLAMP(x, -1, 1);
+        y = CLAMP(y, -1, 1);
+        z = CLAMP(z, -1, 1);
 
-                roll = asin(x);
-                tilt = -asin(y);
-                //that doesn't seem right
-        
+		roll = atan2(x, sqrt(y*y + z*z));
+		tilt = atan2(y, sqrt(x*x + z*z));
 		if(z < 0) 
         {
-			tilt = (y < 0)?  PI - tilt : -PI - tilt;
-			roll = (x < 0)? -PI - roll :  PI - roll;
+			tilt = (y < 0) ? -PI - tilt :  PI - tilt;
+			roll = (x < 0) ? -PI - roll :  PI - roll;
 		}
 		
-                //simple angle smoothing
-                tilt = 0.5 * tilt + 0.5 * mLastAngle.mTilt;
-                roll = 0.5 * roll + 0.5 * mLastAngle.mRoll;
-                //tilt = CYCLE(tilt, -PI, PI);
-                //roll = CYCLE(roll, -PI, PI);
-                mLastAngle.mPan = pan;
-                mLastAngle.mTilt = tilt;
-                mLastAngle.mRoll = roll;
-        }
-        else
-        //remote is accelerating - use old values
-        {
-                pan = mLastAngle.mPan;
-                tilt = mLastAngle.mTilt;
-                roll = mLastAngle.mRoll;
-        }
+        //simple angle smoothing - don't smooth over angle differences > 45°
+		if (fabsf(mLastAngle.mTilt - tilt) < PI/4.0f)
+        	tilt = (1.0f - mSmoothFac) * tilt + mSmoothFac * mLastAngle.mTilt;
+		if (fabsf(mLastAngle.mRoll - roll) < PI/4.0f)
+	        roll = (1.0f - mSmoothFac) * roll + mSmoothFac * mLastAngle.mRoll;
+
+        mLastAngle.mPan  = pan;
+        mLastAngle.mTilt = tilt;
+        mLastAngle.mRoll = roll;
+    }
+    else
+    //remote is accelerating - use old values
+    {
+    	pan  = mLastAngle.mPan;
+        tilt = mLastAngle.mTilt;
+        roll = mLastAngle.mRoll;
+	}
 }
 
 void cWiiMote::GetChukOrientation(float & pan, float & tilt, float & roll) /*const*/
 {
-        float x, y, z;
+	float x, y, z;
     
  	if (!mNunchuckAttached)
 	{
 		pan = tilt = roll = 0.f;
 		return;
 	}
-       //pan cannot be determined through acclereration data
-        pan = 0;
-        GetCalibratedChuckAcceleration(x, y, z);
+    //pan cannot be determined through acclereration data
+    pan = 0;
+    GetCalibratedChuckAcceleration(x, y, z);
 
-        //Nunchuk is most likely not accelerated
-        if (VECLEN(x,y,z) <= 1.05)
-        {
-                //limit accleration values to avoid undefined results
-                x = CLAMP(x,-1,1);
-                y = CLAMP(y,-1,1);
-                z = CLAMP(z,-1,1);
+    //Nunchuk is most likely not accelerated
+    if (VECLEN(x,y,z) <= 1.05)
+    {
+    	//limit accleration values to avoid undefined results
+        x = CLAMP(x,-1,1);
+        y = CLAMP(y,-1,1);
+        z = CLAMP(z,-1,1);
 
-                roll = asin(x);
-                tilt = -asin(y);
-                //that doesn't seem right
-        
+		roll = atan2(x, sqrt(y*y + z*z));
+		tilt = atan2(y, sqrt(x*x + z*z));
 		if(z < 0) 
         {
-			tilt = (y < 0)?  PI - tilt : -PI - tilt;
-			roll = (x < 0)? -PI - roll :  PI - roll;
+			tilt = (y < 0) ? -PI - tilt :  PI - tilt;
+			roll = (x < 0) ? -PI - roll :  PI - roll;
 		}
 		
-                //simple angle smoothing
-                tilt = 0.5 * tilt + 0.5 * mLastChukAngle.mTilt;
-                roll = 0.5 * roll + 0.5 * mLastChukAngle.mRoll;
-                //tilt = CYCLE(tilt, -PI, PI);
-                //roll = CYCLE(roll, -PI, PI);
-                mLastChukAngle.mPan = pan;
-                mLastChukAngle.mTilt = tilt;
-                mLastChukAngle.mRoll = roll;
-        }
-        else
-        //remote is accelerating - use old values
-        {
-                pan = mLastChukAngle.mPan;
-                tilt = mLastChukAngle.mTilt;
-                roll = mLastChukAngle.mRoll;
-        }
+        //simple angle smoothing - don't smooth over angle differences > 45°
+		if (fabsf(mLastChukAngle.mTilt - tilt) < PI/4.0f)
+        	tilt = (1.0f - mSmoothFac) * tilt + mSmoothFac * mLastChukAngle.mTilt;
+		if (fabsf(mLastChukAngle.mRoll - roll) < PI/4.0f)
+	        roll = (1.0f - mSmoothFac) * roll + mSmoothFac * mLastChukAngle.mRoll;
+
+        mLastChukAngle.mPan  = pan;
+        mLastChukAngle.mTilt = tilt;
+        mLastChukAngle.mRoll = roll;
+    }
+    else
+    //remote is accelerating - use old values
+    {
+        pan =  mLastChukAngle.mPan;
+        tilt = mLastChukAngle.mTilt;
+        roll = mLastChukAngle.mRoll;
+    }
 }
 
 void cWiiMote::GetCalibratedChuckAcceleration(float & x, float & y, float &z) const
@@ -1791,6 +1791,12 @@ void cWiiMote::DeactivateIR()
 	    mRequestIR = false;
 	    RequestExpansionReport();    
 	}
+}
+
+void cWiiMote::SetSmoothFac(float fac)
+{
+	//limit factor to 0..1
+	mSmoothFac = min(1.0f, max(fac, 0.0f));
 }
 
 bool cWiiMote::ir_active(void) const

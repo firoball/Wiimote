@@ -83,6 +83,7 @@ public:
 	unsigned short GetDeviceID();
 	void ActivateIR();
 	void DeactivateIR();
+	void SetSmoothFac(float fac);
 	bool ir_active(void) const;
 	bool nunchuk_active(void) const;
 	bool classic_active(void) const;
@@ -462,6 +463,9 @@ private:
 	unsigned char mOutputBuffer[mOutputBufferSize];
 	static const int mInputBufferSize = 22;
 	unsigned char mInputBuffer[mInputBufferSize];
+
+	//smoothing factor for wiimote/Nunchuk angle calculation
+	float mSmoothFac;
 	
 protected:
 	//input states
@@ -480,7 +484,6 @@ protected:
 	bool mGuitarAttached;
 	bool mBalanceBoardAttached;
 	bool mIRRunning;
-
 };
 
 #endif

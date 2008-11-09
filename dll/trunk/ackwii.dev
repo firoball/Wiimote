@@ -1,13 +1,13 @@
 [Project]
 FileName=ackwii.dev
 Name=Wiimote
-UnitCount=9
+UnitCount=12
 Type=3
 Ver=1
 ObjFiles=
 Includes=
 Libs=
-PrivateResource=
+PrivateResource=ackwii_private.rc
 ResourceIncludes=
 MakeIncludes=
 Compiler=-DBUILDING_DLL=1_@@_
@@ -24,7 +24,7 @@ Folders=
 CommandLine=
 UseCustomMakefile=0
 CustomMakefile=
-IncludeVersionInfo=0
+IncludeVersionInfo=1
 SupportXPThemes=0
 CompilerSet=0
 CompilerSettings=0000000001001000000000
@@ -33,7 +33,7 @@ CompilerSettings=0000000001001000000000
 Major=1
 Minor=0
 Release=0
-Build=47
+Build=119
 LanguageID=1033
 CharsetID=1252
 CompanyName=
@@ -98,7 +98,7 @@ OverrideBuildCmd=0
 BuildCmd=
 
 [Unit10]
-FileName=wiimote.cpp
+FileName=hiddevice.h
 CompileCpp=1
 Folder=Wiimote
 Compile=1
@@ -139,6 +139,26 @@ BuildCmd=
 
 [Unit5]
 FileName=ackwiimote.cpp
+CompileCpp=1
+Folder=Wiimote
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit11]
+FileName=wiimote.h
+CompileCpp=1
+Folder=Wiimote
+Compile=1
+Link=1
+Priority=1000
+OverrideBuildCmd=0
+BuildCmd=
+
+[Unit12]
+FileName=ackwiimote.h
 CompileCpp=1
 Folder=Wiimote
 Compile=1
