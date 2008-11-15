@@ -1,7 +1,26 @@
-/* Definition file for using with Wiimote
-   for short descriptions see comments in this file
-   10/25/08 - Firoball
-*/
+/*
+ *******************************************************************************
+ * ackwii_inc.wdl
+ * Creation date: 2008-10-25
+ * Author:        Firoball
+ *
+ *******************************************************************************
+ * $Date$
+ * $Revision$
+ * $Author$
+ *
+ *******************************************************************************
+ * Description
+ *
+ * Definition script demonstrating usage of Wiimote
+ *
+ * Comments
+ * 
+ * for short descriptions see comments in this file
+ *
+ *******************************************************************************
+ */
+
 ifndef ACKWII_INC;
 define ACKWII_INC;
 
@@ -20,7 +39,7 @@ define LED4,	8;
 
 /*
 Those index defines can be used for easier access of the buffer data.
-The buffer data is sotred in a var-array of size 'wiimote_buffer_size'
+The buffer data is sorted in a var-array of size 'wiimote_buffer_size'
 
 Examples of usage:
 var buffer[wiimote_buffer_size]; -- defines a new buffer

@@ -1,8 +1,25 @@
-
-/* Sample script demonstrating usage of Wiimote
-   for short descriptions see comments in ackwii_inc.wdl
-   10/25/08 - Firoball
-*/
+/*
+ *******************************************************************************
+ * wiimote.wdl
+ * Creation date: 2008-10-25
+ * Author:        Firoball
+ *
+ *******************************************************************************
+ * $Date$
+ * $Revision$
+ * $Author$
+ *
+ *******************************************************************************
+ * Description
+ *
+ * Sample script demonstrating usage of Wiimote
+ *
+ * Comments
+ * 
+ * for short descriptions see comments in ackwii_inc.wdl
+ *
+ *******************************************************************************
+ */
 
 define WII_DEBUG;	/* define before including ackwii_inc.wdl to enable debugging */
 plugindir ".";
