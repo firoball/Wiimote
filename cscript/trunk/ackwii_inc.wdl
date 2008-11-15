@@ -55,7 +55,7 @@ buffer[on_b1] = foo;             -- assign function foo() to '1' button
 estimated orientation of Wiimote (can be inaccurate) 
 range: -180° to +180°
 */
-define angle1_pan, 	0;
+define angle1_pan, 		0;
 define angle1_tilt, 	1;
 define angle1_roll, 	2;
 
@@ -63,7 +63,7 @@ define angle1_roll, 	2;
 estimated orientation of Nunchuk (can be inaccurate) 
 range: -180° to +180°
 */
-define angle2_pan, 	3;
+define angle2_pan, 		3;
 define angle2_tilt, 	4;
 define angle2_roll, 	5;
 	
@@ -99,8 +99,8 @@ weight retrieves the total weight (sum of weight detdected by all 4 pressure sen
 */
 define topright,		16;
 define botright,		17;
-define topleft,		18;
-define botleft,		19;
+define topleft,			18;
+define botleft,			19;
 define weight,			20;
 
 /* 
@@ -142,13 +142,13 @@ define butL,			39;
 define butR,			40;
 define butZL,			41;
 define butZR,			42;
-define butPlus,		43;
+define butPlus,			43;
 define butMinus,		44;
-define butHome,		45;
+define butHome,			45;
 define butGreen,		46;
 define butRed,			47;
 define butYellow,		48;
-define butBlue,		49;
+define butBlue,			49;
 define butOrange,		50;
 	
 define butAny,			51;
@@ -172,12 +172,12 @@ range: 0 to 100 for battery
 range: 0 to 0xC0 for batteryraw
 */
 define ir,				56;
-define nunchuk,		57;
-define classic,		58;
+define nunchuk,			57;
+define classic,			58;
 define guitar,			59;
 define balanceboard,	60;
-define battery,		61;
-define batteryraw,	62;
+define battery,			61;
+define batteryraw,		62;
 define vibration,		63;
 define index,			64;
 
@@ -207,16 +207,16 @@ define on_bplus,		77;
 define on_bminus,		78;
 define on_bhome,		79;
 define on_bgreen,		80;
-define on_bred,		81;
-define on_byellow,	82;
+define on_bred,			81;
+define on_byellow,		82;
 define on_bblue,		83;
-define on_borange,	84;
+define on_borange,		84;
 define on_bup,			85;
 define on_bdown,		86;
 define on_bleft,		87;
 define on_bright,		88;
 	
-define on_bany,		89;
+define on_bany,			89;
 
 /* required array size for buffer - DO NOT CHANGE! */ 
 define wiimote_buffer_size, 90;
@@ -243,7 +243,7 @@ dllfunction wiimote_connect(dev_index);
 /* 
 close connection - must be called before exit 
 param: 	handle for wiimote device
-return: 	-
+return:	0 - failed		1 - successful
 */
 dllfunction wiimote_disconnect(handle);
 
@@ -252,7 +252,7 @@ dllfunction wiimote_disconnect(handle);
 turn off/on LEDs of Wiimote 
 param: 	handle for wiimote device
 param: 	4 bits (0-15) for LED1-4 (use defines: LED1...4)
-return:	-
+return:	0 - failed		1 - successful
 Balance Board only supports LED1
 */
 dllfunction wiimote_led(handle, led);
@@ -262,7 +262,7 @@ dllfunction wiimote_led(handle, led);
 turn off(0)/on(1) Vibration 
 param: 	handle for wiimote device
 param:	1 - on		0 - off
-return:	-
+return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 dllfunction wiimote_vibration(handle, vib_on);
@@ -273,7 +273,7 @@ read motion sensors, IR sensor, analog stick and button states
 from Wiimote/Nunchuk/Classic Controller/Balance Board
 param: 	handle for wiimote device
 param:	address of buffer of type WIIMOTE or array var[wiimote_buffer_size] 
-return: 	- 
+return:	0 - failed		1 - successful
 */
 dllfunction wiimote_status(handle, &buffer);
 
@@ -282,17 +282,27 @@ dllfunction wiimote_status(handle, &buffer);
 enable/disable infrared camera
 param: 	handle for wiimote device
 param:	0 - off (default)		1 - on
-return:	-
+return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 dllfunction wiimote_ir(handle, ir_on);
+
+
+/*
+set factor for smoothing of Wiimote angle data
+param: 	handle for wiimote device
+param:	smooth factor (0...1)
+return:	0 - failed		1 - successful
+Not supported by Balance Board
+*/
+dllfunction wiimote_smoothfac(handle, fac);
 
 
 /* 
 check whether a certain device is connected/active 
 use these functions if you don't want to read those values from your buffer
 param: 	handle for wiimote device
-return: 	0 - inactive		1 - active 
+return: 	0 - inactive/failed		1 - active 
 */
 dllfunction wiimote_connected(handle);
 dllfunction wiimote_nunchuk_connected(handle);
@@ -305,7 +315,7 @@ dllfunction wiimote_vibration_active(handle);
 
 /* get battery charge  
 param: 	handle for wiimote device
-return:	battery charge in percent (0-100)
+return:	battery charge in percent (0 - 100)
 */
 dllfunction wiimote_battery(handle);
 
