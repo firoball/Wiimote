@@ -99,68 +99,81 @@ weight retrieves the total weight (sum of weight detdected by all 4 pressure sen
 */
 define topright,		16;
 define botright,		17;
-define topleft,			18;
-define botleft,			19;
+define topleft,		18;
+define botleft,		19;
 define weight,			20;
 
 /* 
 IR sensor data (up to 4 IR dots can be detected)
 range: 0 (left) to 1023 (right) 	(x)
-range: 0 (top) to 767 (bottom)	(y)
+range: 0 (top)  to 767 (bottom)	(y)
+range: 0 to 15							(size) 
 */
 define ir1_x,			21;
 define ir1_y,			22;
-define ir2_x,			23;
-define ir2_y,			24;
-define ir3_x,			25;
-define ir3_y,			26;
-define ir4_x,			27;
-define ir4_y,			28;
+define ir1_size,		23;
+define ir2_x,			24;
+define ir2_y,			25;
+define ir2_size,		26;
+define ir3_x,			27;
+define ir3_y,			28;
+define ir3_size,		29;
+define ir4_x,			30;
+define ir4_y,			31;
+define ir4_size,		32;
+
+/* 
+IR pointer data
+range: 0 (left) to screen width (right) 	(x)
+range: 0 (top)  to screen height (bottom)	(y)
+*/
+define ir_x,			33;
+define ir_y,			34;
 
 /* 
 shoulder button data of classic controller, whammy bar (left shoulder) of guitar
 range: 0 (not pressed) to 255 (fully pressed)
 limits may slightly vary due to inaccurate calibration
 */
-define sl,				29;
-define sr,				30;
+define sl,				35;
+define sr,				36;
 
 /* 
 button data of Wiimote and expansion device
 Classic Controller, Guitar and Balance Board buttons are mapped to Wiimote buttons with the same caption
 range: 0 (not pressed) or 1 (pressed)
 */
-define butA,			31;
-define butB,			32;
-define butX,			33;
-define butY,			34;
-define butC,			35;
-define butZ,			36;
-define but1,			37;
-define but2,			38;
-define butL,			39;
-define butR,			40;
-define butZL,			41;
-define butZR,			42;
-define butPlus,			43;
-define butMinus,		44;
-define butHome,			45;
-define butGreen,		46;
-define butRed,			47;
-define butYellow,		48;
-define butBlue,			49;
-define butOrange,		50;
+define butA,			37;
+define butB,			38;
+define butX,			39;
+define butY,			40;
+define butC,			41;
+define butZ,			42;
+define but1,			43;
+define but2,			44;
+define butL,			45;
+define butR,			46;
+define butZL,			47;
+define butZR,			48;
+define butPlus,		49;
+define butMinus,		50;
+define butHome,		51;
+define butGreen,		52;
+define butRed,			53;
+define butYellow,		54;
+define butBlue,		55;
+define butOrange,		56;
 	
-define butAny,			51;
+define butAny,			57;
 
 /* 
 directional pad data of either Wiimote, Classic Controller or Guitar
 range: 0 (not pressed) or 1 (pressed)
 */
-define up,				52;
-define down,			53;
-define left,			54;
-define right,			55;
+define up,				58;
+define down,			59;
+define left,			60;
+define right,			61;
 	
 /* 
 status variables and flags of Wiimote/expansion device 
@@ -171,15 +184,15 @@ range: 0 to x for index, x being number of found devices - 1
 range: 0 to 100 for battery
 range: 0 to 0xC0 for batteryraw
 */
-define ir,				56;
-define nunchuk,			57;
-define classic,			58;
-define guitar,			59;
-define balanceboard,	60;
-define battery,			61;
-define batteryraw,		62;
-define vibration,		63;
-define index,			64;
+define ir,				62;
+define nunchuk,		63;
+define classic,		64;
+define guitar,			65;
+define balanceboard,	66;
+define battery,		67;
+define batteryraw,	68;
+define vibration,		69;
+define index,			70;
 
 /* 
 on_xxx events for assigning functions to Wiimote/expansion device buttons
@@ -191,35 +204,35 @@ two parameters upon call:
 param: 	(var) handle for wiimote device which triggered event
 param:	(var&) buffer array of queried device
 */
-define on_ba,			65;
-define on_bb,			66;
-define on_bx,			67;
-define on_by,			68;
-define on_bc,			69;
-define on_bz,			70;
-define on_b1,			71;
-define on_b2,			72;
-define on_bl,			73;
-define on_br,			74;
-define on_bzl,			75;
-define on_bzr,			76;
-define on_bplus,		77;
-define on_bminus,		78;
-define on_bhome,		79;
-define on_bgreen,		80;
-define on_bred,			81;
-define on_byellow,		82;
-define on_bblue,		83;
-define on_borange,		84;
-define on_bup,			85;
-define on_bdown,		86;
-define on_bleft,		87;
-define on_bright,		88;
+define on_ba,			71;
+define on_bb,			72;
+define on_bx,			73;
+define on_by,			74;
+define on_bc,			75;
+define on_bz,			76;
+define on_b1,			77;
+define on_b2,			78;
+define on_bl,			79;
+define on_br,			80;
+define on_bzl,			81;
+define on_bzr,			82;
+define on_bplus,		83;
+define on_bminus,		84;
+define on_bhome,		85;
+define on_bgreen,		86;
+define on_bred,		87;
+define on_byellow,	88;
+define on_bblue,		89;
+define on_borange,	90;
+define on_bup,			91;
+define on_bdown,		92;
+define on_bleft,		93;
+define on_bright,		94;
 	
-define on_bany,			89;
+define on_bany,		95;
 
 /* required array size for buffer - DO NOT CHANGE! */ 
-define wiimote_buffer_size, 90;
+define wiimote_buffer_size, 96;
 
 //////////DLL Prototypes
 /*
@@ -296,6 +309,16 @@ return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 dllfunction wiimote_smoothfac(handle, fac);
+
+
+/*
+set sensivity level for Wiimote IR camera
+param: 	handle for wiimote device
+param:	sensity level (0...4) (default: 2)
+return:	0 - failed		1 - successful
+Not supported by Balance Board
+*/
+dllfunction wiimote_ir_sensitivity(handle, level);
 
 
 /* 

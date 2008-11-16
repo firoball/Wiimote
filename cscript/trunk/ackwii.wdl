@@ -52,90 +52,102 @@ PANEL wii_panel =
 	digits(120,	30,		"R %-+5.0f", wiifont, 1, wii_buf[angle1_roll]);
 
 	digits(0,	45,		"X1 %-+4.0f", wiifont, 1, wii_buf[ir1_x]);
-	digits(50,	45,		"X2 %-+4.0f", wiifont, 1, wii_buf[ir1_y]);
-	digits(100,	45,		"X3 %-+4.0f", wiifont, 1, wii_buf[ir2_x]);
-	digits(150,	45,		"X4 %-+4.0f", wiifont, 1, wii_buf[ir2_y]);
-	digits(0,	60,		"Y1 %-+4.0f", wiifont, 1, wii_buf[ir3_x]);
-	digits(50,	60,		"Y2 %-+4.0f", wiifont, 1, wii_buf[ir3_y]);
-	digits(100,	60,		"Y3 %-+4.0f", wiifont, 1, wii_buf[ir4_x]);
+	digits(50,	45,		"X2 %-+4.0f", wiifont, 1, wii_buf[ir2_x]);
+	digits(100,	45,		"X3 %-+4.0f", wiifont, 1, wii_buf[ir3_x]);
+	digits(150,	45,		"X4 %-+4.0f", wiifont, 1, wii_buf[ir4_x]);
+	digits(0,	60,		"Y1 %-+4.0f", wiifont, 1, wii_buf[ir1_y]);
+	digits(50,	60,		"Y2 %-+4.0f", wiifont, 1, wii_buf[ir2_y]);
+	digits(100,	60,		"Y3 %-+4.0f", wiifont, 1, wii_buf[ir3_y]);
 	digits(150,	60,		"Y4 %-+4.0f", wiifont, 1, wii_buf[ir4_y]);
+	digits(0,	75,		"S1 %-+4.0f", wiifont, 1, wii_buf[ir1_size]);
+	digits(50,	75,		"S2 %-+4.0f", wiifont, 1, wii_buf[ir2_size]);
+	digits(100,	75,		"S3 %-+4.0f", wiifont, 1, wii_buf[ir3_size]);
+	digits(150,	75,		"S4 %-+4.0f", wiifont, 1, wii_buf[ir4_size]);
 
 
-	digits(0,	80,		"Nunchuk", wiifont, 1, 1);
-	digits(0,	95,		"X %-+5.0f", wiifont, 1, wii_buf[accel2_x]);
-	digits(60,	95,		"Y %-+5.0f", wiifont, 1, wii_buf[accel2_y]);
-	digits(120,	95,		"Z %-+5.0f", wiifont, 1, wii_buf[accel2_z]);
+	digits(0,	95,		"Nunchuk", wiifont, 1, 1);
+	digits(0,	110,		"X %-+5.0f", wiifont, 1, wii_buf[accel2_x]);
+	digits(60,	110,		"Y %-+5.0f", wiifont, 1, wii_buf[accel2_y]);
+	digits(120,	110,		"Z %-+5.0f", wiifont, 1, wii_buf[accel2_z]);
 
-	digits(0,	110,		"P %-+5.0f", wiifont, 1, wii_buf[angle2_pan]);
-	digits(60,	110,		"T %-+5.0f", wiifont, 1, wii_buf[angle2_tilt]);
-	digits(120,	110,		"R %-+5.0f", wiifont, 1, wii_buf[angle2_roll]);
-
-
-	digits(0,	130,		"Analog sticks", wiifont, 1, 1);
-	digits(0,	145,		"X1 %-+3.0f", wiifont, 1, wii_buf[joy1_x]);
-	digits(50,	145,		"Y1 %-+3.0f", wiifont, 1, wii_buf[joy1_y]);
-	digits(100,	145,		"X2 %-+3.0f", wiifont, 1, wii_buf[joy2_x]);
-	digits(150,	145,		"Y2 %-+3.0f", wiifont, 1, wii_buf[joy2_y]);
+	digits(0,	125,		"P %-+5.0f", wiifont, 1, wii_buf[angle2_pan]);
+	digits(60,	125,		"T %-+5.0f", wiifont, 1, wii_buf[angle2_tilt]);
+	digits(120,	125,		"R %-+5.0f", wiifont, 1, wii_buf[angle2_roll]);
 
 
-	digits(0,	165,		"Direction pad", wiifont, 1, 1);
-	digits(0,	180,		"UP %1.0f", wiifont, 1, wii_buf[up]);
-	digits(40,	180,		"DN %1.0f", wiifont, 1, wii_buf[down]);
-	digits(80,	180,		"LT %1.0f", wiifont, 1, wii_buf[left]);
-	digits(120,	180,		"RT %1.0f", wiifont, 1, wii_buf[right]);
+	digits(0,	145,		"Analog sticks", wiifont, 1, 1);
+	digits(0,	160,		"X1 %-+3.0f", wiifont, 1, wii_buf[joy1_x]);
+	digits(50,	160,		"Y1 %-+3.0f", wiifont, 1, wii_buf[joy1_y]);
+	digits(100,	160,		"X2 %-+3.0f", wiifont, 1, wii_buf[joy2_x]);
+	digits(150,	160,		"Y2 %-+3.0f", wiifont, 1, wii_buf[joy2_y]);
 
 
-	digits(0,	200,		"Shoulder buttons", wiifont, 1, 1);
-	digits(0,	215,		"LT %-3.0f", wiifont, 1, wii_buf[sl]);
-	digits(40,	215,		"RT %-3.0f", wiifont, 1, wii_buf[sr]);
+	digits(0,	180,		"Direction pad", wiifont, 1, 1);
+	digits(0,	195,		"UP %1.0f", wiifont, 1, wii_buf[up]);
+	digits(40,	195,		"DN %1.0f", wiifont, 1, wii_buf[down]);
+	digits(80,	195,		"LT %1.0f", wiifont, 1, wii_buf[left]);
+	digits(120,	195,		"RT %1.0f", wiifont, 1, wii_buf[right]);
 
 
-	digits(0,	235,		"Button states", wiifont, 1, 1);
-	digits(0,	250,		"A  %1.0f", wiifont, 1, wii_buf[butA]);
-	digits(40,	250,		"B  %1.0f", wiifont, 1, wii_buf[butB]);
-	digits(80,	250,		"1  %1.0f", wiifont, 1, wii_buf[but1]);
-	digits(120,	250,		"2  %1.0f", wiifont, 1, wii_buf[but2]);
-
-	digits(0,	265,		"X  %1.0f", wiifont, 1, wii_buf[butX]);
-	digits(40,	265,		"Y  %1.0f", wiifont, 1, wii_buf[butY]);
-	digits(80,	265,		"C  %1.0f", wiifont, 1, wii_buf[butC]);
-	digits(120,	265,		"Z  %1.0f", wiifont, 1, wii_buf[butZ]);
-
-	digits(0,	280,		"L  %1.0f", wiifont, 1, wii_buf[butL]);
-	digits(40,	280,		"R  %1.0f", wiifont, 1, wii_buf[butR]);
-	digits(80,	280,		"ZL %1.0f", wiifont, 1, wii_buf[butZL]);
-	digits(120,	280,		"ZR %1.0f", wiifont, 1, wii_buf[butZR]);
-
-	digits(0,	295,		"Gr %1.0f", wiifont, 1, wii_buf[butGreen]);
-	digits(40,	295,		"Re %1.0f", wiifont, 1, wii_buf[butRed]);
-	digits(80,	295,		"Ye %1.0f", wiifont, 1, wii_buf[butYellow]);
-	digits(120,	295,		"Bl %1.0f", wiifont, 1, wii_buf[butBlue]);
-	digits(160,	295,		"Or %1.0f", wiifont, 1, wii_buf[butOrange]);
-
-	digits(0,	310,		"-  %1.0f", wiifont, 1, wii_buf[butMinus]);
-	digits(40,	310,		"HM %1.0f", wiifont, 1, wii_buf[butHome]);
-	digits(80,	310,		"+  %1.0f", wiifont, 1, wii_buf[butPlus]);
+	digits(0,	215,		"Shoulder buttons", wiifont, 1, 1);
+	digits(0,	230,		"LT %-3.0f", wiifont, 1, wii_buf[sl]);
+	digits(40,	230,		"RT %-3.0f", wiifont, 1, wii_buf[sr]);
 
 
-	digits(0,	330,		"Balance Board", wiifont, 1, 1);
-	digits(0,	345,		"TR %3.0f", wiifont, 1, wii_buf[topright]);
-	digits(40,	345,		"BR %3.0f", wiifont, 1, wii_buf[botright]);
-	digits(80,	345,		"TL %3.0f", wiifont, 1, wii_buf[topleft]);
-	digits(120,	345,		"BL %3.0f", wiifont, 1, wii_buf[botleft]);
-	digits(160,	345,		"W  %3.0f", wiifont, 1, wii_buf[weight]);
+	digits(0,	250,		"Button states", wiifont, 1, 1);
+	digits(0,	265,		"A  %1.0f", wiifont, 1, wii_buf[butA]);
+	digits(40,	265,		"B  %1.0f", wiifont, 1, wii_buf[butB]);
+	digits(80,	265,		"1  %1.0f", wiifont, 1, wii_buf[but1]);
+	digits(120,	265,		"2  %1.0f", wiifont, 1, wii_buf[but2]);
+
+	digits(0,	280,		"X  %1.0f", wiifont, 1, wii_buf[butX]);
+	digits(40,	280,		"Y  %1.0f", wiifont, 1, wii_buf[butY]);
+	digits(80,	280,		"C  %1.0f", wiifont, 1, wii_buf[butC]);
+	digits(120,	280,		"Z  %1.0f", wiifont, 1, wii_buf[butZ]);
+
+	digits(0,	295,		"L  %1.0f", wiifont, 1, wii_buf[butL]);
+	digits(40,	295,		"R  %1.0f", wiifont, 1, wii_buf[butR]);
+	digits(80,	295,		"ZL %1.0f", wiifont, 1, wii_buf[butZL]);
+	digits(120,	295,		"ZR %1.0f", wiifont, 1, wii_buf[butZR]);
+
+	digits(0,	310,		"Gr %1.0f", wiifont, 1, wii_buf[butGreen]);
+	digits(40,	310,		"Re %1.0f", wiifont, 1, wii_buf[butRed]);
+	digits(80,	310,		"Ye %1.0f", wiifont, 1, wii_buf[butYellow]);
+	digits(120,	310,		"Bl %1.0f", wiifont, 1, wii_buf[butBlue]);
+	digits(160,	310,		"Or %1.0f", wiifont, 1, wii_buf[butOrange]);
+
+	digits(0,	325,		"-  %1.0f", wiifont, 1, wii_buf[butMinus]);
+	digits(40,	325,		"HM %1.0f", wiifont, 1, wii_buf[butHome]);
+	digits(80,	325,		"+  %1.0f", wiifont, 1, wii_buf[butPlus]);
 
 
-	digits(0,	365,		"Devices", wiifont, 1, 1);
-	digits(0,	380,		"IR %1.0f", wiifont, 1, wii_buf[ir]);
-	digits(40,	380,		"N  %1.0f", wiifont, 1, wii_buf[nunchuk]);
-	digits(80,	380,		"CC %1.0f", wiifont, 1, wii_buf[classic]);
-	digits(120,	380,		"G  %1.0f", wiifont, 1, wii_buf[guitar]);
-	digits(160,	380,		"BB %1.0f", wiifont, 1, wii_buf[balanceboard]);
-	digits(200,	380,		"BAT %3.0fprc", wiifont, 1, wii_buf[battery]);
+	digits(0,	345,		"Balance Board", wiifont, 1, 1);
+	digits(0,	360,		"TR %3.0f", wiifont, 1, wii_buf[topright]);
+	digits(40,	360,		"BR %3.0f", wiifont, 1, wii_buf[botright]);
+	digits(80,	360,		"TL %3.0f", wiifont, 1, wii_buf[topleft]);
+	digits(120,	360,		"BL %3.0f", wiifont, 1, wii_buf[botleft]);
+	digits(160,	360,		"W  %3.0f", wiifont, 1, wii_buf[weight]);
 
-	digits(0,	410,		"F12: toggle display - Keep B pressed on Wiimote to rec. motion sensors", wiifont, 1, 1);
+
+	digits(0,	380,		"Devices", wiifont, 1, 1);
+	digits(0,	395,		"IR %1.0f", wiifont, 1, wii_buf[ir]);
+	digits(40,	395,		"N  %1.0f", wiifont, 1, wii_buf[nunchuk]);
+	digits(80,	395,		"CC %1.0f", wiifont, 1, wii_buf[classic]);
+	digits(120,	395,		"G  %1.0f", wiifont, 1, wii_buf[guitar]);
+	digits(160,	395,		"BB %1.0f", wiifont, 1, wii_buf[balanceboard]);
+	digits(200,	395,		"BAT %3.0fprc", wiifont, 1, wii_buf[battery]);
+
+	digits(0,	425,		"F12: toggle display - Keep B pressed on Wiimote to rec. motion sensors", wiifont, 1, 1);
 
 	flags	= OVERLAY;
+}
+
+BMAP ir_map = "ir_dot.tga";
+PANEL ir_panel = 
+{
+	pos_x = 0;
+	pos_y = 0;
+	bmap = ir_map;
 }
 
 /* copy a buffer to the debug panel buffer */
@@ -153,6 +165,18 @@ function wiimote_panel(&buffer)
 		{
 			wii_buf[i] = buffer[i];
 			i += 1;
+		}
+
+		/* perform IR dot movement if requested */
+		if (wii_buf[ir])
+		{
+			ir_panel.pos_x = wii_buf[ir_x];
+			ir_panel.pos_y = wii_buf[ir_y];
+			ir_panel.visible = on;
+		}
+		else
+		{
+			ir_panel.visible = off;
 		}
 		wait (1);
 	}
