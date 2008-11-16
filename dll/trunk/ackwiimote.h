@@ -49,7 +49,14 @@ typedef struct
 {
 	var ir_x;
 	var ir_y;
+	var size;
 }IR;
+
+typedef struct
+{
+	var ir_x;
+	var ir_y;
+}IRPTR;
 
 typedef struct
 {
@@ -160,6 +167,7 @@ typedef struct
 	BOARD board;
 	
 	IR ir[4];
+	IRPTR pointer;
 	SHOULDER shoulder;
 	BUTTONS buttons;
 	DPAD dpad;
@@ -182,11 +190,13 @@ public:
 
 	bool ConnectToDevice(int index = 0);
 	bool Disconnect();	
-	void GetStatus(WIIMOTE * buffer);
+	void GetStatus(WIIMOTE* buffer);
 	bool ShutdownRequested() const {return shutdown;}	
-	void CallPointers(WIIMOTE * buffer);
 	
 private:
+	void CallPointers(WIIMOTE* buffer);
+	void SetPointer(WIIMOTE* buffer);
+	
 	bool shutdown;
 	HANDLE ThreadHandle;
     DWORD ThreadID;
@@ -194,6 +204,19 @@ private:
     LOCKER locked;
     int dev_index;
     int batRaw, bat;
+    
+   	/* IR pointer variables */
+	var posX;
+	var posY;
+	var lastPosX;
+	var lastPosY;
+	var point_distX;
+	var point_distY;
+	var lastIRX1;
+	var lastIRX2;
+	var lastIRY1;
+	var lastIRY2;
+
 };
 
 #endif

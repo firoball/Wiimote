@@ -99,8 +99,20 @@ const unsigned long IR_REG_2 = 0x04B00033;
 const unsigned long IR_SENS_ADDR_1 = 0x04B00000;
 const unsigned long IR_SENS_ADDR_2 = 0x04B0001A;
 
-const unsigned char IR_SENS_MIDRANGE_PART1[] = {0x02, 0x00, 0x00, 0x71, 0x01, 0x00, 0xaa, 0x00, 0x64};
-const unsigned char IR_SENS_MIDRANGE_PART2[] = {0x63, 0x03};    //taken from http://wiibrew.org/
+const unsigned char IR_SENSITIVITY_PART1[5][9] = { //taken from http://wiibrew.org/
+	{0x02, 0x00, 0x00, 0x71, 0x01, 0x00, 0x64, 0x00, 0xFE},
+	{0x02, 0x00, 0x00, 0x71, 0x01, 0x00, 0x96, 0x00, 0xB4},
+	{0x02, 0x00, 0x00, 0x71, 0x01, 0x00, 0xAA, 0x00, 0x64},
+	{0x02, 0x00, 0x00, 0x71, 0x01, 0x00, 0xC8, 0x00, 0x36},
+	{0x07, 0x00, 0x00, 0x71, 0x01, 0x00, 0x72, 0x00, 0x20}
+};
+const unsigned char IR_SENSITIVITY_PART2[5][2] = { //taken from http://wiibrew.org/
+	{0xFD, 0x05},
+	{0xB3, 0x04},    
+	{0x63, 0x03},
+	{0x35, 0x03},
+	{0x1F, 0x03}
+};
 
 const unsigned char IR_MODE_OFF = 0;
 const unsigned char IR_MODE_STD = 1;    // 10 Byte IR data
@@ -160,6 +172,7 @@ void cWiiMote::Init()
 	mExpansionType        = EXP_DEV_NONE;
 	
 	mSmoothFac            = 0.5f;	
+	mSensitivityLevel     = 2;
 }
 
 bool cWiiMote::SetReportMode(eReportMode mode)
@@ -821,8 +834,8 @@ void cWiiMote::GetOrientation(float & pan, float & tilt, float & roll) /*const*/
         y = CLAMP(y, -1, 1);
         z = CLAMP(z, -1, 1);
 
-		roll = atan2(x, sqrt(y*y + z*z));
-		tilt = atan2(y, sqrt(x*x + z*z));
+		roll = atan2f(x, sqrt(y*y + z*z));
+		tilt = atan2f(y, sqrt(x*x + z*z));
 		if(z < 0) 
         {
 			tilt = (y < 0) ? -PI - tilt :  PI - tilt;
@@ -869,8 +882,8 @@ void cWiiMote::GetChukOrientation(float & pan, float & tilt, float & roll) /*con
         y = CLAMP(y,-1,1);
         z = CLAMP(z,-1,1);
 
-		roll = atan2(x, sqrt(y*y + z*z));
-		tilt = atan2(y, sqrt(x*x + z*z));
+		roll = atan2f(x, sqrt(y*y + z*z));
+		tilt = atan2f(y, sqrt(x*x + z*z));
 		if(z < 0) 
         {
 			tilt = (y < 0) ? -PI - tilt :  PI - tilt;
@@ -1515,13 +1528,13 @@ bool cWiiMote::EnableIR()
 		
 		if (retval)
 		{
-			retval = WriteMemory(IR_SENS_ADDR_1,9,IR_SENS_MIDRANGE_PART1);
+			retval = WriteMemory(IR_SENS_ADDR_1,9,IR_SENSITIVITY_PART1[mSensitivityLevel]);
             Sleep(20);  //short delay to make sure IR works properly
 		}
 
 		if (retval)
 		{
-			retval = WriteMemory(IR_SENS_ADDR_2,2,IR_SENS_MIDRANGE_PART2);
+			retval = WriteMemory(IR_SENS_ADDR_2,2,IR_SENSITIVITY_PART2[mSensitivityLevel]);
             Sleep(20);  //short delay to make sure IR works properly
 		}
 
@@ -1669,18 +1682,19 @@ void cWiiMote::sortIRP(void)
     }
 }
 
-bool cWiiMote::GetIRP(float &x, float &y, int no) const
+bool cWiiMote::GetIRP(float &x, float &y, float &s, int no) const
 {   
     bool retval = false;
     if (mIRRunning && mLastIRReport.mPFound[no])
     {
         x = mLastIRReport.mPX[no] / 1023.f;
         y = mLastIRReport.mPY[no] / 767.f;
+		s = mLastIRReport.mPSize[no];
         retval = true;
     }
     else
     {
-		x = y = 0.f;
+		x = y = s = 0.f;
 	}
     return retval;
 }
@@ -1797,6 +1811,12 @@ void cWiiMote::SetSmoothFac(float fac)
 {
 	//limit factor to 0..1
 	mSmoothFac = min(1.0f, max(fac, 0.0f));
+}
+
+void cWiiMote::SetIRSensitivity(int level)
+{
+	//limit level to 0..4
+	mSensitivityLevel = min(4, max(level, 0));
 }
 
 bool cWiiMote::ir_active(void) const

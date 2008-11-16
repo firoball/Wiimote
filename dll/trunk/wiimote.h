@@ -75,7 +75,7 @@ public:
 	void GetCalibratedGuitarStick(float & x, float & y) const;
 	void GetCalibratedGuitarAnalog(float & b) const;
 	void GetCalibratedBalanceBoardSensors(float & pTL, float & pTR, float & pBL, float & pBR) const;
-	bool GetIRP(float &x, float &y, int no) const;
+	bool GetIRP(float &x, float &y, float &s, int no) const;
 
 
 	char GetBatteryPercent();
@@ -84,6 +84,7 @@ public:
 	void ActivateIR();
 	void DeactivateIR();
 	void SetSmoothFac(float fac);
+	void SetIRSensitivity(int level);
 	bool ir_active(void) const;
 	bool nunchuk_active(void) const;
 	bool classic_active(void) const;
@@ -466,6 +467,8 @@ private:
 
 	//smoothing factor for wiimote/Nunchuk angle calculation
 	float mSmoothFac;
+	//sensity level for IR camera
+	int mSensitivityLevel;
 	
 protected:
 	//input states

@@ -324,3 +324,17 @@ DLLFUNC var wiimote_smoothfac(var handle, var fac)
 
 	return _VAR((int)retval);
 }
+
+DLLFUNC var wiimote_ir_sensitivity(var handle, var level)
+{
+	bool retval = false;
+	ackWiiMote *wiimote = (ackWiiMote*)handle;
+
+	if (wiimote__checkHandle(wiimote))
+	{
+		wiimote->SetIRSensitivity(level);
+		retval = true;
+	}
+
+	return _VAR((int)retval);
+}

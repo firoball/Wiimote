@@ -21,13 +21,25 @@
 
 ackWiiMote::ackWiiMote():cWiiMote()
 {
-	
 	shutdown = false;
 	//battery count needs some time to initialize, set timer initial value slightly below maximum to reach limit very early
 	BatTimer = _VAR(((float)BAT_PERIOD - 0.4)) * 16;	
 	memset(&locked, 0, sizeof(locked));
 	dev_index = -1;
 	batRaw = bat = 0;
+	
+	/* IR pointer variables */
+	posX = _VAR(0);
+	posY = _VAR(0);
+	lastPosX = _VAR(0);
+	lastPosY = _VAR(0);
+	point_distX = _VAR(0); 
+	point_distY = _VAR(0);
+	lastIRX1 = _VAR(0);
+	lastIRX2 = _VAR(0);
+	lastIRY1 = _VAR(0);
+	lastIRY2 = _VAR(0);
+
 }
 
 ackWiiMote::~ackWiiMote()
@@ -102,14 +114,18 @@ void ackWiiMote::GetStatus(WIIMOTE * buffer)
 
 	for (i = 0; i < 4; i++)
 	{
-		GetIRP(x, y, i);
+		GetIRP(x, y, z, i);
 		buffer->ir[i].ir_x = _VAR((int)(x * 1023));
 		/* invert x direction */
 		if (buffer->ir[i].ir_x != _VAR(0))
 			buffer->ir[i].ir_x = _VAR(1023) - buffer->ir[i].ir_x;
 		buffer->ir[i].ir_y = _VAR((int)(y * 767));
+		buffer->ir[i].size = _VAR((int)z);
 	}	
-	
+	/* calculate IR pointer data based on buffer data of Wiimote 
+	write back resulting positions directly to buffer */
+	SetPointer(buffer);	
+
 	/* Nunchuk 
 	- stick is mapped to 'stick1'
 	- acceleration is mapped to 'accel2'
@@ -499,3 +515,133 @@ void ackWiiMote::CallPointers(WIIMOTE * buffer)
 		locked.buttons.butAny = _VAR(0);
 }
 
+void ackWiiMote::SetPointer(WIIMOTE* buffer)
+{	
+	static var limitX, limitY;
+	
+	/* IR active */
+	if (buffer->status.ir != 0)
+	{
+		/* second IR dot = 0/0 and first IR dot != 0/0 */
+		if (buffer->ir[1].ir_x == _VAR(0) && buffer->ir[1].ir_y == _VAR(0) &&
+			(buffer->ir[0].ir_x != _VAR(0) || buffer->ir[0].ir_y != _VAR(0)))
+		{
+			/* single IR dot found */
+
+			/* check to which of the old dots the current dot is closer */
+			posX = buffer->ir[0].ir_x;
+			posY = buffer->ir[0].ir_y;
+
+			/* --- x direction  --- */
+			/* "first" dot still active */
+			if (absv(lastIRX1 - posX) < absv(lastIRX2 - posX))
+			{
+				lastIRX2 = _VAR(999999); /* sth big */
+				posX -= point_distX / 2;
+			}
+
+			else
+			/* "second" dot still active */
+			{
+				lastIRX1 = _VAR(999999); /* sth big */
+				posX += point_distX / 2;
+			}
+
+			/* --- y direction  --- */
+			/* "first" dot still active */
+			if (absv(lastIRY1 - posY) < absv(lastIRY2 - posY))
+			{
+				lastIRY2 = _VAR(999999); /* sth big to avoid false detection */
+				posY -= point_distY / 2;
+			}
+
+			else
+			/* "second" dot still active */
+			{
+				lastIRY1 = _VAR(999999); /* sth big to avoid false detection */
+				posY += point_distY / 2;
+			}
+
+			/* before updating position data, check last value */
+			posX = CLAMP(posX, _VAR(0), _VAR(1023));
+			posY = CLAMP(posY, _VAR(0), _VAR(767));
+
+			/* store last position values */
+			lastPosX = posX;
+			lastPosY = posY;
+		}
+		/* second IR dot != 0/0 and first IR dot != 0/0 */
+		else 
+		{
+			/* calculate x distance of dots */
+			if (buffer->ir[0].ir_x != _VAR(0) && buffer->ir[1].ir_x != _VAR(0))
+			{
+				/* negative value: dot 2 > dot 1, positive value: dot 1 > dot 2 */
+				point_distX = buffer->ir[0].ir_x - buffer->ir[1].ir_x;
+			}
+		
+			/* calculate y distance of dots */
+			if (buffer->ir[0].ir_y != _VAR(0) && buffer->ir[1].ir_y != _VAR(0))
+			{
+				/* negative value: dot 2 > dot 1, positive value: dot 1 > dot 2 */
+				point_distY = buffer->ir[0].ir_y - buffer->ir[1].ir_y;
+			}
+
+			/* two IR dots found */
+			if (buffer->ir[0].ir_x != _VAR(0) || buffer->ir[0].ir_y != _VAR(0))
+			{
+				posX = integer((buffer->ir[0].ir_x + buffer->ir[1].ir_x) / 2);
+				posY = integer((buffer->ir[0].ir_y + buffer->ir[1].ir_y) / 2);
+
+				/* store last position values */
+				lastPosX = posX;
+				lastPosY = posY;
+
+				/* store last IR values */
+				lastIRX1 = 	buffer->ir[0].ir_x;	
+				lastIRX2 = 	buffer->ir[1].ir_x;	
+				lastIRY1 = 	buffer->ir[0].ir_y;	
+				lastIRY2 = 	buffer->ir[1].ir_y;	
+			}
+			/* second IR dot = 0/0 and first IR dot = 0/0 */
+			else
+			{
+				/* no IR dot found - keep last values */
+				posX = lastPosX;
+				posY = lastPosY; 
+			}
+		}
+
+	
+		/* correct influence of roll angle of Wiimote */
+/* needs fixing
+		posX -= _VAR(1023) / 2;
+		posY -= _VAR(767) / 2;
+		posX = (var)(cosv(buffer->angle1.roll) * _INT(posX) - sinv(buffer->angle1.roll) * _INT(posY));
+		posY = (var)(sinv(buffer->angle1.roll) * _INT(posX) + cosv(buffer->angle1.roll) * _INT(posY));
+		posX += _VAR(1023) / 2;
+		posY += _VAR(767) / 2;
+*/
+
+		/* scale to screen resolution */
+		posX = (var)(_FLOAT(v(screen_size).x) * posX / 1023.0f);	
+		posY = (var)(_FLOAT(v(screen_size).y) * posY / 767.0f);	
+
+	}
+	/* IR not active */
+	else
+	{
+		posX        = _VAR(0);
+		posY        = _VAR(0);
+		lastIRX1    = _VAR(0);
+		lastIRX2    = _VAR(0);
+		lastIRY1    = _VAR(0);
+		lastIRX2    = _VAR(0);
+		point_distX = _VAR(0);
+		point_distY = _VAR(0);
+	}
+
+	/* write to buffer */
+	buffer->pointer.ir_x = integer(posX);
+	buffer->pointer.ir_y = integer(posY);
+}
