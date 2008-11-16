@@ -60,7 +60,21 @@ typedef struct
 {
 	var ir_x;
 	var ir_y;
+	var size;
 }IR;
+
+
+/*
+struct containing the IR pointer data.
+range: 0 (left) to screen width (right) 	(x)
+range: 0 (top)  to screen size (bottom)	(y)
+*/
+
+typedef struct
+{
+	var ir_x;
+	var ir_y;
+}IRPTR;
 
 
 /*
@@ -246,6 +260,9 @@ typedef struct
 	/* IR sensor data (up to 4 IR dots can be detected) */
 	IR ir[4];
 
+	/* IR pointer data */
+	IRPTR pointer;
+	
 	/* shoulder button data of classic controller, whammy bar (left shoulder) of guitar */
 	SHOULDER shoulder;
 
@@ -318,7 +335,7 @@ var wiimote_vibration(var handle, var vib_on);
 read motion sensors, IR sensor, analog stick and button states 
 from Wiimote/Nunchuk/Classic Controller/Guitar/Balance Board
 param: 	handle for wiimote device
-param:	address of buffer of type WIIMOTE or array var[90] 
+param:	address of buffer of type WIIMOTE or array var[96] 
 return:	0 - failed		1 - successful
 */
 var wiimote_status(var handle, void* buffer);
@@ -342,6 +359,16 @@ return:	0 - failed		1 - successful
 Not supported by Balance Board
 */
 var wiimote_smoothfac(var handle, var fac);
+
+
+/*
+set sensivity level for Wiimote IR camera
+param: 	handle for wiimote device
+param:	sensity level (0...4) (default: 2)
+return:	0 - failed		1 - successful
+Not supported by Balance Board
+*/
+var wiimote_ir_sensitivity(var handle, var level);
 
 
 /* 
@@ -382,6 +409,7 @@ debug mode on/off via F12 - is activated automatically
 
 void wiimote_print(var handle, WIIMOTE* buffer);
 void wiimote_debug(WIIMOTE* buffer);
+void wiimote_move_irdot(WIIMOTE* buffer);
 void wiimote_on();
 void wiimote_off();
 
