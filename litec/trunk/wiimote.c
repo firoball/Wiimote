@@ -44,16 +44,32 @@ void toggleVibration (var handle, WIIMOTE* buffer)
 }
 
 WIIMOTE buffer;	//needs to be declared globally
+WIIMOTE buffer2;	//needs to be declared globally
+
+var curbuf = 0;
+void toggle_buffer()
+{
+#ifdef WII_DEBUG
+	if (curbuf == 0)
+			wiimote_debug(&buffer);
+	else
+			wiimote_debug(&buffer2);
+#endif
+	curbuf = 1-curbuf;
+}
 
 void main ()
 {
+	on_a = toggle_buffer;
 	video_mode = 7; 
 	screen_color.blue = 150;
 	fps_max = 100;
 	
 	var wii_handle;
+	var wii_handle2;
 	/* clear buffer before using!! */
 	zero(buffer);
+	zero(buffer2);
 
 	/* assign functions to Wiimote buttons */
 	buffer.event.on_1 = toggleIR;
@@ -64,8 +80,9 @@ void main ()
 	if (wiimote_getdevices() > 0)
 	{
 		/* connect first device */
-		wii_handle = wiimote_connect(0);
-		if(wii_handle != NULL)
+		wii_handle = wiimote_handle(1);//wiimote_connect(0);
+		wii_handle2 = wiimote_handle(2);//wiimote_connect(1);
+		if(wii_handle != NULL && wii_handle2 != NULL)
 		{
 			/*
 			debug mode: show buffer in panel and assign log function to B button
@@ -84,6 +101,7 @@ void main ()
 			{
 				/* update buffer with data coming from Wiimote */
 				wiimote_status(wii_handle, &buffer);
+				wiimote_status(wii_handle2, &buffer2);
 				wait(1);
 			}
 			/*
@@ -91,7 +109,8 @@ void main ()
 			Otherwise engine will crash! Also wait a few ticks to ensure that DLL is
 			not running anymore.
 			*/
-			wiimote_disconnect(wii_handle);
+//			wiimote_disconnect(wii_handle);
+//			wiimote_disconnect(wii_handle2);
 			wait(2);
 		}
 	}	

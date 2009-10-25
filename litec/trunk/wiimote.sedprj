@@ -1,7 +1,8 @@
 Project Name: wiimote
 Base Directory: E:\projects\Acknex\wiimote
+Main Script: E:\projects\Acknex\wiimote\wiimote.c
 File: ..\structtest\struct_sample.c
 Opened: E:\projects\Acknex\wiimote\ackwii.c,241,0
-Opened: E:\projects\Acknex\wiimote\wiimote.c,28,0
+Opened: E:\projects\Acknex\wiimote\wiimote.c,84,6
 Opened: E:\projects\Acknex\wiimote\ackwii.h,365,33
-Opened: E:\projects\Acknex\wiimote\wiimote.wdl,16,0
+Opened: E:\projects\Acknex\wiimote\wiimote.wdl,19,14
